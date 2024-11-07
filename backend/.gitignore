@@ -1,0 +1,6 @@
+# Local Netlify folder
+.netlify
+
+/out_publish/
+/out_functions/
+/404.html
