@@ -204,14 +204,14 @@ function Header() {
                 fontSize="24px"
                 fontFamily={theme.fonts.heading}
               >
-                EzReserve
+                Reserveasy
               </text>
             </svg>
-            EzReserve
+            Reserveasy
           </Logo>
           <Nav>
             <NavLinks>
-              {['Home', 'Restaurants', 'About', 'Contact'].map((item) => (
+              {['Home', 'Restaurants'].map((item) => (
                 <NavLinkItem key={item}>
                   <NavLink to={`/${item.toLowerCase()}`} onClick={handleNavClick}>
                     {item}

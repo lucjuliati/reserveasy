@@ -1,6 +1,5 @@
-// src/components/Navbar.jsx
-import React from "react";
-import "./Navbar.css";
+import React from "react"
+import "./Navbar.css"
 
 const Navbar = () => {
   return (
@@ -12,7 +11,7 @@ const Navbar = () => {
         <a href="#">Contact</a>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

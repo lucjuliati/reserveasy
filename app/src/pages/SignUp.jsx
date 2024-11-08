@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { theme } from '../styles/theme';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { FaGoogle } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { theme } from '../styles/theme'
 
 const SignUpContainer = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const SignUpContainer = styled.div`
   align-items: center;
   min-height: 100vh;
   background-color: ${theme.colors.background};
-`;
+`
 
 const SignUpForm = styled(motion.form)`
   background-color: ${theme.colors.white};
@@ -20,7 +20,7 @@ const SignUpForm = styled(motion.form)`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-`;
+`
 
 const Title = styled.h2`
   font-family: ${theme.fonts.heading};
@@ -28,7 +28,7 @@ const Title = styled.h2`
   margin-bottom: 1.5rem;
   text-align: center;
   color: ${theme.colors.primary};
-`;
+`
 
 const Input = styled.input`
   width: 100%;
@@ -37,7 +37,7 @@ const Input = styled.input`
   border: 1px solid ${theme.colors.border};
   border-radius: 5px;
   font-size: 1rem;
-`;
+`
 
 const Button = styled(motion.button)`
   width: 100%;
@@ -53,7 +53,7 @@ const Button = styled(motion.button)`
   &:hover {
     background-color: ${theme.colors.primaryDark};
   }
-`;
+`
 
 const GoogleButton = styled(Button)`
   background-color: #4285F4;
@@ -66,7 +66,7 @@ const GoogleButton = styled(Button)`
   &:hover {
     background-color: #3367D6;
   }
-`;
+`
 
 const LoginLink = styled(Link)`
   display: block;
@@ -78,22 +78,22 @@ const LoginLink = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
-`;
+`
 
 function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     // Handle sign up logic here
-    console.log('Sign up with:', email, password);
-  };
+    console.log('Sign up with:', email, password)
+  }
 
   const handleGoogleSignUp = () => {
     // Handle Google sign up logic here
-    console.log('Sign up with Google');
-  };
+    console.log('Sign up with Google')
+  }
 
   return (
     <SignUpContainer>
@@ -101,8 +101,7 @@ function SignUp() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        onSubmit={handleSubmit}
-      >
+        onSubmit={handleSubmit}>
         <Title>Sign Up</Title>
         <Input
           type="email"
@@ -121,22 +120,20 @@ function SignUp() {
         <Button
           type="submit"
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
+          whileTap={{ scale: 0.95 }}>
           Sign Up
         </Button>
         <GoogleButton
           type="button"
           onClick={handleGoogleSignUp}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
+          whileTap={{ scale: 0.95 }}>
           <FaGoogle /> Sign Up with Google
         </GoogleButton>
         <LoginLink to="/login">Already have an account? Log in</LoginLink>
       </SignUpForm>
     </SignUpContainer>
-  );
+  )
 }
 
-export default SignUp;
+export default SignUp

@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { theme } from '../styles/theme';
+import React from 'react'
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { theme } from '../styles/theme'
 
 const HeroContainer = styled.div`
   min-height: 100vh;
@@ -14,7 +14,7 @@ const HeroContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-`;
+`
 
 const Grid = styled(motion.div)`
   display: grid;
@@ -24,7 +24,7 @@ const Grid = styled(motion.div)`
   max-width: 1350px;
   width: 100%;
   height: 80vh;
-`;
+`
 
 const GridItem = styled(motion.div)`
   background-color: ${props => props.bgColor || theme.colors.white};
@@ -38,16 +38,16 @@ const GridItem = styled(motion.div)`
   padding: 1.5rem;
   position: relative;
   cursor: pointer;
-`;
+`
 
 const LongItem = styled(GridItem)`
   grid-column: span 2;
   grid-row: span 2;
-`;
+`
 
 const ShortItem = styled(GridItem)`
   grid-row: span 2;
-`;
+`
 
 const ItemImage = styled.img`
   position: absolute;
@@ -61,21 +61,21 @@ const ItemImage = styled.img`
   ${GridItem}:hover & {
     transform: scale(1.05);
   }
-`;
+`
 
 const ItemContent = styled.div`
   position: relative;
   z-index: 2;
   color: ${theme.colors.white};
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-`;
+`
 
 const ItemTitle = styled.h2`
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
   font-family: ${theme.fonts.heading};
-`;
+`
 
 const ItemDescription = styled.p`
   font-size: 1rem;
@@ -88,7 +88,7 @@ const ItemDescription = styled.p`
     opacity: 1;
     transform: translateY(0);
   }
-`;
+`
 
 const Overlay = styled.div`
   position: absolute;
@@ -97,7 +97,7 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-`;
+`
 
 const MainTitle = styled(motion.h1)`
   font-size: 4rem;
@@ -107,7 +107,7 @@ const MainTitle = styled(motion.h1)`
   font-family: ${theme.fonts.heading};
   color: ${theme.colors.primary};
   letter-spacing: -1px;
-`;
+`
 
 const Subtitle = styled(motion.p)`
   font-size: 1.5rem;
@@ -116,7 +116,7 @@ const Subtitle = styled(motion.p)`
   font-family: ${theme.fonts.main};
   color: ${theme.colors.secondary};
   max-width: 800px;
-`;
+`
 
 const CTAButton = styled(motion.button)`
   padding: 1rem 2rem;
@@ -135,7 +135,7 @@ const CTAButton = styled(motion.button)`
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-`;
+`
 
 const HeroSection = () => {
   const gridItems = [
@@ -169,31 +169,28 @@ const HeroSection = () => {
       image: "src/assets/hero-image0.jpg",
       type: "normal",
     },
-  ];
+  ]
 
   return (
     <HeroContainer>
       <MainTitle
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <b>EzReserve</b>
+        transition={{ duration: 0.8 }}>
+        <b>Reserveasy</b>
       </MainTitle>
       <Subtitle
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-      >
+        transition={{ duration: 0.8, delay: 0.2 }}>
         Where 'Table for Two' is always on the menu, and 'Sorry, we're full' is off it!
       </Subtitle>
       <Grid
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
+        transition={{ duration: 0.8, delay: 0.4 }}>
         {gridItems.map((item, index) => {
-          const ItemComponent = item.type === 'long' ? LongItem : item.type === 'short' ? ShortItem : GridItem;
+          const ItemComponent = item.type === 'long' ? LongItem : item.type === 'short' ? ShortItem : GridItem
           return (
             <ItemComponent
               key={index}
@@ -201,14 +198,13 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <ItemImage 
-                src={item.image} 
-                alt={item.title} 
+              whileTap={{ scale: 0.98 }}>
+              <ItemImage
+                src={item.image}
+                alt={item.title}
                 onError={(e) => {
-                  e.target.onerror = null; 
-                  e.target.src = `https://via.placeholder.com/800x600?text=${encodeURIComponent(item.title.replace(/\s/g, '+'))}`;
+                  e.target.onerror = null
+                  e.target.src = `https://via.placeholder.com/800x600?text=${encodeURIComponent(item.title.replace(/\s/g, '+'))}`
                 }}
               />
               <Overlay />
@@ -217,7 +213,7 @@ const HeroSection = () => {
                 <ItemDescription>{item.description}</ItemDescription>
               </ItemContent>
             </ItemComponent>
-          );
+          )
         })}
       </Grid>
       <CTAButton
@@ -227,10 +223,10 @@ const HeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.8 }}
       >
-       Book Now
+        Book Now
       </CTAButton>
     </HeroContainer>
-  );
-};
+  )
+}
 
-export default HeroSection;
+export default HeroSection

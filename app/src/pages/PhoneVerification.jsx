@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { theme } from '../styles/theme';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { theme } from '../styles/theme'
 
 const VerificationContainer = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ const VerificationContainer = styled.div`
   align-items: center;
   min-height: 100vh;
   background-color: ${theme.colors.background};
-`;
+`
 
 const VerificationForm = styled(motion.form)`
   background-color: ${theme.colors.white};
@@ -18,7 +18,7 @@ const VerificationForm = styled(motion.form)`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-`;
+`
 
 const Title = styled.h2`
   font-family: ${theme.fonts.heading};
@@ -26,7 +26,7 @@ const Title = styled.h2`
   margin-bottom: 1.5rem;
   text-align: center;
   color: ${theme.colors.primary};
-`;
+`
 
 const Input = styled.input`
   width: 100%;
@@ -35,7 +35,7 @@ const Input = styled.input`
   border: 1px solid ${theme.colors.border};
   border-radius: 5px;
   font-size: 1rem;
-`;
+`
 
 const Button = styled(motion.button)`
   width: 100%;
@@ -51,26 +51,26 @@ const Button = styled(motion.button)`
   &:hover {
     background-color: ${theme.colors.primaryDark};
   }
-`;
+`
 
 function PhoneVerification() {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [verificationCode, setVerificationCode] = useState('');
-  const [step, setStep] = useState(1);
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [verificationCode, setVerificationCode] = useState('')
+  const [step, setStep] = useState(1)
 
   const handleSubmitPhone = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     // Handle phone number submission logic here
-    console.log('Phone number submitted:', phoneNumber);
-    setStep(2);
-  };
+    console.log('Phone number submitted:', phoneNumber)
+    setStep(2)
+  }
 
   const handleSubmitCode = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     // Handle verification code submission logic here
-    console.log('Verification code submitted:', verificationCode);
+    console.log('Verification code submitted:', verificationCode)
     // Redirect to home page or show success message
-  };
+  }
 
   return (
     <VerificationContainer>
@@ -118,7 +118,7 @@ function PhoneVerification() {
         )}
       </VerificationForm>
     </VerificationContainer>
-  );
+  )
 }
 
-export default PhoneVerification;
+export default PhoneVerification

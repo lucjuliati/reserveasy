@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 export const theme = {
   colors: {
@@ -19,7 +19,7 @@ export const theme = {
     medium: '0 4px 6px rgba(0, 0, 0, 0.1)',
     large: '0 10px 15px rgba(0, 0, 0, 0.1)',
   },
-};
+}
 
 export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap');
@@ -36,4 +36,4 @@ export const GlobalStyle = createGlobalStyle`
   h1, h2, h3, h4, h5, h6 {
     font-family: ${theme.fonts.accent};
   }
-`;
+`
