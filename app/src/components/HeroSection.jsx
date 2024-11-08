@@ -5,7 +5,6 @@ import { theme } from '../styles/theme'
 
 const HeroContainer = styled.div`
   min-height: 100vh;
-  width: 100%;
   background-color: ${theme.colors.background};
   color: ${theme.colors.text};
   padding: 2rem;
@@ -221,8 +220,7 @@ const HeroSection = () => {
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
-      >
+        transition={{ duration: 0.5, delay: 0.8 }}>
         Book Now
       </CTAButton>
     </HeroContainer>
