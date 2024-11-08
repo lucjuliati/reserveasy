@@ -4,3 +4,5 @@ node_modules/
 /out_publish/
 /out_functions/
 /404.html
+
+.env
