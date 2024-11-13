@@ -60,16 +60,13 @@ function PhoneVerification() {
 
   const handleSubmitPhone = (e) => {
     e.preventDefault()
-    // Handle phone number submission logic here
     console.log('Phone number submitted:', phoneNumber)
     setStep(2)
   }
 
   const handleSubmitCode = (e) => {
     e.preventDefault()
-    // Handle verification code submission logic here
     console.log('Verification code submitted:', verificationCode)
-    // Redirect to home page or show success message
   }
 
   return (

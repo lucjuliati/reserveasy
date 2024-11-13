@@ -1,6 +1,5 @@
 /* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap');
-@import './styles/colors.css';
 
 :root {
   --bg-primary: #F7F7F7;
@@ -22,10 +21,10 @@
   /* box-sizing: border-box; */
 }
 
+
 body, html {
   margin: 0 !important;
   padding: 0 !important;
-  overflow: hidden;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -59,4 +58,48 @@ a, button {
   pointer-events: none;
   transition: all 0.15s ease-out;
   z-index: 9999;
+}
+
+.back-button {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  left: 12px;
+  background-color: rgba(225, 110, 27, 0.3);
+  border-radius: 50%;
+  top: 18px;
+  padding: 12px;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+input {
+  width: calc(100% - 25px) !important;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+button {
+  &:hover {
+    filter: brightness(0.94);
+  }
+}
+
+.loginFormBtn {
+  width: 100%;
+  padding: 0.75rem;
+  color: white;
+  border: none;
+  margin-bottom: 16px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
 }

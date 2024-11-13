@@ -1,20 +1,21 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5000/api'
+// export const ADDRESS = 'http://localhost:8888/.netlify/functions/api'
+export const ADDRESS = 'https://hilarious-narwhal-ea4884.netlify.app/.netlify/functions/api'
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: ADDRESS,
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
-// Add interceptor to include auth token
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
+
   return config
 })
 

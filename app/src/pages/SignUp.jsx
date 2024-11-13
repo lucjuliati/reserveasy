@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { FaGoogle } from 'react-icons/fa'
+import { FaArrowLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { theme } from '../styles/theme'
+import { useNavigate } from 'react-router-dom'
 
 const SignUpContainer = styled.div`
   display: flex;
@@ -30,15 +31,6 @@ const Title = styled.h2`
   color: ${theme.colors.primary};
 `
 
-const Input = styled.input`
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid ${theme.colors.border};
-  border-radius: 5px;
-  font-size: 1rem;
-`
-
 const Button = styled(motion.button)`
   width: 100%;
   padding: 0.75rem;
@@ -55,19 +47,6 @@ const Button = styled(motion.button)`
   }
 `
 
-const GoogleButton = styled(Button)`
-  background-color: #4285F4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-
-  &:hover {
-    background-color: #3367D6;
-  }
-`
-
 const LoginLink = styled(Link)`
   display: block;
   text-align: center;
@@ -81,58 +60,51 @@ const LoginLink = styled(Link)`
 `
 
 function SignUp() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Handle sign up logic here
     console.log('Sign up with:', email, password)
   }
 
-  const handleGoogleSignUp = () => {
-    // Handle Google sign up logic here
-    console.log('Sign up with Google')
-  }
-
   return (
-    <SignUpContainer>
-      <SignUpForm
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        onSubmit={handleSubmit}>
-        <Title>Sign Up</Title>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button
-          type="submit"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}>
-          Sign Up
-        </Button>
-        <GoogleButton
-          type="button"
-          onClick={handleGoogleSignUp}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}>
-          <FaGoogle /> Sign Up with Google
-        </GoogleButton>
-        <LoginLink to="/login">Already have an account? Log in</LoginLink>
-      </SignUpForm>
-    </SignUpContainer>
+    <>
+      <button className="back-button" onClick={() => navigate(-1)}>
+        <FaArrowLeft size={28} color='#ffffff' />
+      </button>
+      <SignUpContainer>
+        <SignUpForm
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          onSubmit={handleSubmit}>
+          <Title>Sign Up</Title>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <Button
+            type="submit"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}>
+            Sign Up
+          </Button>
+          <LoginLink to="/login">Already have an account? Log in</LoginLink>
+        </SignUpForm>
+      </SignUpContainer>
+    </>
   )
 }
 

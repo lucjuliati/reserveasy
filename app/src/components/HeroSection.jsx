@@ -101,6 +101,7 @@ const Overlay = styled.div`
 const MainTitle = styled(motion.h1)`
   font-size: 4rem;
   font-weight: bold;
+  margin-top: 50px;
   margin-bottom: 1rem;
   text-align: center;
   font-family: ${theme.fonts.heading};

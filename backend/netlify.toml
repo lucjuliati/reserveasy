@@ -1,6 +1,9 @@
 [functions]
   external_node_modules = ["express"]
+  included_files = ["public/**"]
   node_bundler = "esbuild"
+[build]
+  publish = "public"
 [[redirects]]
   force = true
   from = "/src/*"

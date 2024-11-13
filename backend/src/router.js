@@ -1,12 +1,15 @@
 import express from 'express'
 import users from './controllers/users.js'
+import restaurants from './controllers/restaurants.js'
+import { auth } from './middleware/auth.js'
 
 const router = express.Router()
 
-router.get('/users/', users.getUsers)
-router.post('/users/guests', users.createGuest)
-// router.get('/restaurants', getRestaurants)
-// router.get('/restaurants/:id', getRestaurantById)
-// router.post('/restaurants/:id/check-availability', checkAvailability)
+router.post('/users/', users.signUp)
+router.post('/users/login', users.login)
+router.post('/users/guests', auth, users.createGuest)
+router.get('/restaurants', restaurants.list)
+router.post('/restaurants/reservations', auth, restaurants.addReservation)
+router.delete('/restaurants/reservations/:id', auth, restaurants.removeReservation)
 
 export default router

@@ -69,7 +69,7 @@ const RatingValue = styled.span`
 `
 
 function RestaurantCard({ restaurant }) {
-  const stars = "★".repeat(Math.floor(restaurant.rating)) + "☆".repeat(5 - Math.floor(restaurant.rating));
+  const stars = "★".repeat(Math.floor(restaurant.rating)) + "☆".repeat(5 - Math.floor(restaurant.rating))
 
   return (
     <Card

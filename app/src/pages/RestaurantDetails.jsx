@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { format } from 'date-fns'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
-import { restaurantApi, reservationApi } from '../services/api'
+import { restaurantApi, reservationApi } from '../utils/api'
 
 const DetailContainer = styled(motion.div)`
   max-width: 1200px;

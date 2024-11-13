@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
-import { theme } from '../styles/theme';
-import { Link } from 'react-router-dom';
-import { FaBars, FaTimes, FaUser, FaSignInAlt } from 'react-icons/fa';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { motion, AnimatePresence } from 'framer-motion'
+import { theme } from '../styles/theme'
+import { Link } from 'react-router-dom'
+import { FaBars, FaTimes, FaUser, FaSignInAlt } from 'react-icons/fa'
 
 const HeaderContainer = styled(motion.header)`
   position: fixed;
@@ -16,7 +16,7 @@ const HeaderContainer = styled(motion.header)`
   transition: box-shadow 0.3s ease;
   z-index: 1000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-`;
+`
 
 const HeaderContent = styled.div`
   max-width: 1200px;
@@ -26,7 +26,7 @@ const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 const Logo = styled(Link)`
   font-family: ${theme.fonts.heading};
@@ -46,7 +46,7 @@ const Logo = styled(Link)`
   &:hover {
     color: ${theme.colors.secondary};
   }
-`;
+`
 
 const Nav = styled.nav`
   display: flex;
@@ -55,15 +55,13 @@ const Nav = styled.nav`
   @media (max-width: 768px) {
     display: none;
   }
-`;
+`
 
 const NavLinks = styled.ul`
   display: flex;
   gap: 2rem;
   list-style: none;
-`;
-
-const NavLinkItem = styled.li``;
+`
 
 const NavLink = styled(Link)`
   font-family: ${theme.fonts.body};
@@ -93,13 +91,13 @@ const NavLink = styled(Link)`
   &:hover::after {
     width: 100%;
   }
-`;
+`
 
 const AuthLinks = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-`;
+`
 
 const AuthLink = styled(Link)`
   font-family: ${theme.fonts.body};
@@ -124,7 +122,7 @@ const AuthLink = styled(Link)`
     width: 16px;
     height: 16px;
   }
-`;
+`
 
 const MobileMenuIcon = styled.button`
   display: none;
@@ -150,48 +148,47 @@ const MobileMenu = styled(motion.div)`
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   z-index: 999;
-`;
+`
 
 const MobileNavLinks = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-`;
+`
 
 const MobileAuthLinks = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
-`;
+`
 
 const headerVariants = {
   hidden: { y: -80 },
   visible: { y: 0, transition: { type: 'spring', stiffness: 120, damping: 20 } },
   exit: { y: -80, transition: { duration: 0.3 } },
-};
+}
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
 
   const handleNavClick = () => {
     if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
+      setIsMobileMenuOpen(false)
     }
-  };
+  }
 
   return (
     <>
       <HeaderContainer
         variants={headerVariants}
         initial="visible"
-        animate="visible"
-      >
+        animate="visible">
         <HeaderContent>
           <Logo to="/">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -202,8 +199,7 @@ function Header() {
                 textAnchor="middle"
                 fill={theme.colors.white}
                 fontSize="24px"
-                fontFamily={theme.fonts.heading}
-              >
+                fontFamily={theme.fonts.heading}>
                 Reserveasy
               </text>
             </svg>
@@ -211,13 +207,16 @@ function Header() {
           </Logo>
           <Nav>
             <NavLinks>
-              {['Home', 'Restaurants'].map((item) => (
-                <NavLinkItem key={item}>
-                  <NavLink to={`/${item.toLowerCase()}`} onClick={handleNavClick}>
-                    {item}
-                  </NavLink>
-                </NavLinkItem>
-              ))}
+              <li>
+                <NavLink to={`/`} onClick={handleNavClick}>
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/restaurants`} onClick={handleNavClick}>
+                  Restaurants
+                </NavLink>
+              </li>
             </NavLinks>
           </Nav>
           <AuthLinks>
@@ -228,11 +227,10 @@ function Header() {
               <FaUser /> Sign Up
             </AuthLink>
           </AuthLinks>
-          <MobileMenuIcon 
-            onClick={toggleMobileMenu} 
+          <MobileMenuIcon
+            onClick={toggleMobileMenu}
             aria-label="Toggle menu"
-            aria-expanded={isMobileMenuOpen}
-          >
+            aria-expanded={isMobileMenuOpen}>
             {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
           </MobileMenuIcon>
         </HeaderContent>
@@ -243,8 +241,7 @@ function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
+            transition={{ duration: 0.3 }}>
             <MobileNavLinks>
               {['Home', 'Restaurants', 'About', 'Contact'].map((item) => (
                 <li key={item}>
@@ -266,7 +263,7 @@ function Header() {
         )}
       </AnimatePresence>
     </>
-  );
+  )
 }
 
-export default Header;
+export default Header

@@ -5,7 +5,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/f
 import { theme } from '../styles/theme'
 
 const FooterContainer = styled.footer`
-  background-color: #1A1A1A; // Dark background
+  background-color: #1A1A1A;
   color: ${theme.colors.white};
   padding: 4rem 0 2rem;
 `
@@ -49,7 +49,7 @@ const SocialIcons = styled.div`
 `
 
 const SocialIcon = styled(motion.a)`
-  color: #B0B0B0; // Light gray for better readability
+  color: #B0B0B0;
   font-size: 1.5rem;
   transition: color 0.3s ease;
 
@@ -63,7 +63,7 @@ const Copyright = styled.p`
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: #808080; // Medium gray for less emphasis
+  color: #808080;
 `
 
 function Footer() {
@@ -71,7 +71,7 @@ function Footer() {
     <FooterContainer>
       <FooterContent>
         <FooterSection>
-          <FooterTitle>GourmetGuide</FooterTitle>
+          <FooterTitle>Reserveasy</FooterTitle>
           <FooterLink href="#">About Us</FooterLink>
           <FooterLink href="#">Our Team</FooterLink>
           <FooterLink href="#">Careers</FooterLink>
@@ -100,7 +100,7 @@ function Footer() {
           </SocialIcons>
         </FooterSection>
       </FooterContent>
-      <Copyright>&copy; 2023 GourmetGuide. All rights reserved.</Copyright>
+      <Copyright>&copy; 2024 Reserveasy. All rights reserved.</Copyright>
     </FooterContainer>
   )
 }

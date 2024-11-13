@@ -74,6 +74,7 @@ function RestaurantModal({ restaurant, onClose }) {
         <Cuisine>{restaurant.cuisine} Cuisine</Cuisine>
         <Rating>★ {restaurant.rating.toFixed(1)}</Rating>
         <p>Additional restaurant details can be added here...</p>
+        <button>Reserve</button>
       </ModalContent>
     </ModalOverlay>
   )

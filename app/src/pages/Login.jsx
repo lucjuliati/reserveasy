@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { FaGoogle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { theme } from '../styles/theme'
+import { FaArrowLeft } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
+import { ADDRESS } from '../utils/api'
+import axios from 'axios'
 
 const LoginContainer = styled.div`
   display: flex;
@@ -30,42 +33,6 @@ const Title = styled.h2`
   color: ${theme.colors.primary};
 `
 
-const Input = styled.input`
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid ${theme.colors.border};
-  border-radius: 5px;
-  font-size: 1rem;
-`
-
-const Button = styled(motion.button)`
-  width: 100%;
-  padding: 0.75rem;
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.white};
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: ${theme.colors.primaryDark};
-  }
-`
-
-const GoogleButton = styled(Button)`
-  background-color: #4285F4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  &:hover {
-    background-color: #3367D6;
-  }
-`
-
 const SignUpLink = styled(Link)`
   display: block;
   text-align: center;
@@ -78,61 +45,68 @@ const SignUpLink = styled(Link)`
 `
 
 function Login() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Handle login logic here
     console.log('Login with:', email, password)
   }
 
-  const handleGoogleLogin = () => {
-    // Handle Google login logic here
-    console.log('Login with Google')
+  useEffect(() => {
+    axios.get(ADDRESS + '/users/tests').then(res => {
+      console.log(res)
+    })
+  }, [])
+
+  const guestSubmit = () => {
+    axios.post(ADDRESS + '/users/guests').then(res => {
+      console.log(res.data)
+    }).catch(console.error)
   }
 
   return (
-    <LoginContainer>
-      <LoginForm
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        onSubmit={handleSubmit}
-      >
-        <Title>Log In</Title>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button
-          type="submit"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Log In
-        </Button>
-        <GoogleButton
-          type="button"
-          onClick={handleGoogleLogin}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaGoogle /> Log In with Google
-        </GoogleButton>
-        <SignUpLink to="/signup">Don't have an account? Sign up</SignUpLink>
-      </LoginForm>
-    </LoginContainer>
+    <>
+      <button className="back-button" onClick={() => navigate(-1)}>
+        <FaArrowLeft size={28} color='#ffffff' />
+      </button>
+      <LoginContainer>
+        <LoginForm
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          onSubmit={handleSubmit}>
+          <Title>Log In</Title>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="loginFormBtn"
+            style={{ background: theme.colors.primary }}>
+            Log In
+          </button>
+          <motion.button
+            type="submit"
+            onClick={guestSubmit}
+            className="loginFormBtn"
+            style={{ background: 'royalblue' }}>
+            Log In as a guest
+          </motion.button>
+          <SignUpLink to="/signup">Don't have an account? Sign up</SignUpLink>
+        </LoginForm>
+      </LoginContainer>
+    </>
   )
 }
 
