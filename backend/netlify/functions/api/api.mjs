@@ -1,5 +1,6 @@
 import serverless from 'serverless-http'
-import app from '../../../src/server'
+import start from '../../../src/utils/start'
 
+const app = start(false)
 const handler = serverless(app)
 export { handler }

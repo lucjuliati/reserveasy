@@ -4,15 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@libsql/client": "^0.14.0",
+    "@supabase/supabase-js": "^2.46.1",
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-async-handler": "^1.2.0",
-    "mongoose": "^8.8.0",
-    "serverless-http": "^3.2.0",
-    "sqlite3": "^5.1.7"
+    "serverless-http": "^3.2.0"
   },
   "scripts": {
     "dev": "node --watch ./src/server.js",
@@ -21,6 +19,5 @@
     "preview": "netlify build --context deploy-preview"
   },
   "type": "module",
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
