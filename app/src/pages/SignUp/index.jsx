@@ -2,15 +2,22 @@ import React, { useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { Button, LoginLink, SignUpContainer, SignUpForm, Title } from './styles'
+import api from '../../utils/api'
 
 function SignUp() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('Sign up with:', email, password)
+
+    let data = { email, name, password }
+    api.post('/users', data).then(res => {
+      console.log(res)
+    }).catch(console.error)
   }
 
   return (
@@ -25,6 +32,13 @@ function SignUp() {
           transition={{ duration: 0.5 }}
           onSubmit={handleSubmit}>
           <Title>Sign Up</Title>
+          <input
+            type="name"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
           <input
             type="email"
             placeholder="Email"
