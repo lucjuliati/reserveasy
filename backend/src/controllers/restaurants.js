@@ -13,11 +13,18 @@ const restaurantController = {
 
     async addReservation(req, res) {
         try {
-            // let user = await db.from('users').insert({
-            //     name: name, is_guest: true
-            // })
+            let params = req.params
+            let data = req.body
+            
+            let reservation = await db.from('reservations').insert({
+                restaurant: params.id,
+                user: req.user.id,
+                date: data.date
+            }).select()
 
-            return res.status(201).send(user)
+            if (reservation.status != 201) throw new Error()
+
+            return res.status(201).send(reservation.data)
         } catch (err) {
             console.error(err)
             return res.status(400).send()

@@ -3,8 +3,11 @@ import axios from 'axios'
 // export const ADDRESS = 'http://localhost:8888/.netlify/functions/api'
 export const ADDRESS = 'https://hilarious-narwhal-ea4884.netlify.app/.netlify/functions/api'
 
+const devAddress = 'http://localhost:8888/.netlify/functions/api'
+const prodAddress = 'https://hilarious-narwhal-ea4884.netlify.app/.netlify/functions/api'
+
 const api = axios.create({
-  baseURL: ADDRESS,
+  baseURL: import.meta.env.DEV ? devAddress:prodAddress,
   headers: {
     'Content-Type': 'application/json',
   },

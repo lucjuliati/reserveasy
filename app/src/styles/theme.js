@@ -2,12 +2,12 @@ import { createGlobalStyle } from 'styled-components'
 
 export const theme = {
   colors: {
-    primary: '#D4AF37', // Rich gold
-    secondary: '#8B4513', // Saddle brown
-    accent: '#C41E3A', // Cardinal red
-    background: '#FFE5CA', // Light gray background
-    text: '#333333', // Dark gray text
-    textLight: '#666666', // Medium gray text
+    primary: '#D4AF37',
+    secondary: '#8B4513',
+    accent: '#C41E3A',
+    background: '#FFE5CA',
+    text: '#333333',
+    textLight: '#666666',
     white: '#FFFFFF',
   },
   fonts: {

@@ -23,6 +23,7 @@ const userController = {
 
             const token = signJWT(user)
 
+            delete user.password
             return res.status(200).send({ user, token })
         } catch (err) {
             console.error(err)

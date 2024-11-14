@@ -23,16 +23,24 @@ changeDir.on('close', async (code) => {
 
                 console.info('public/ deleted')
             })
-        }, 1_000)
-
+        }, 1_500)
+        
         spawn('yarn', ['build'], { cwd: '../app', shell: true }).on('close', async (code) => {
             console.info('\x1b[32m%s\x1b[0m', 'Vite build finished')
 
             await execute(() => {
-                exec('cd ../app && mv dist/ ../backend/public/', (error, stdout, stderr) => {
+                exec('mv ../app/dist/ ../backend/public/', (error, stdout, stderr) => {
                     if (error || stderr) throw new Error(error)
 
                     console.info('app/dist/ moved to backend/public/')
+                })
+            }, 1_000)
+
+            await execute(() => {
+                exec('cp ../app/assets/* ../backend/public/assets/', (error, stdout, stderr) => {
+                    if (error || stderr) throw new Error(error)
+
+                    console.info('app/assets/ moved to backend/public/')
                 })
             }, 1_000)
         })
