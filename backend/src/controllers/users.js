@@ -1,5 +1,4 @@
 import db from '../database/index.js'
-import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 function signJWT(data) {
@@ -15,45 +14,34 @@ const userController = {
                 .eq('email', data?.email)
                 .eq('is_guest', false)
 
-            if (!user) {
+            if (user.error) {
                 throw new Error('User not found!')
             } else {
                 user = user.data[0]
             }
 
-            const token = signJWT(user)
+            if (data.password != atob(user.password)) {
+                throw new Error("INCORRECT_PASSWORD")
+            }
 
+            const token = signJWT(user)
             delete user.password
             return res.status(200).send({ user, token })
         } catch (err) {
             console.error(err)
-            return res.status(400).send()
+            return res.status(400).send(err)
         }
     },
 
     async signUp(req, res) {
         try {
             let data = req.body
-            let password = null
-
-            await new Promise((r, _) => setTimeout(async () => {
-                await bcrypt.genSalt(8, async function (err, salt) {
-                    await bcrypt.hash(data.password, salt, async (err, hash) => {
-                        if (err) throw new Error(err)
-
-                        password = hash
-                        r(hash)
-                    })
-                })
-            }, 750))
-
-            if (!password) throw new Error()
 
             const user = await db.from('users').insert({
                 name: data.name,
                 email: data.email,
+                password: btoa(data.password),
                 is_guest: false,
-                password
             }).select()
 
             const token = signJWT(user.data)
@@ -67,12 +55,40 @@ const userController = {
 
     async createGuest(req, res) {
         try {
+            let date = new Date()
+            date.setDate(date.getDate() - 1)
+            date = date.toLocaleDateString("pt-BR").split("/").reverse().join("-")
+
+            await db.from('users').delete()
+                .eq('is_guest', true)
+                .lt('created_at', `${date} 23:59:59`)
+
             const name = `guest_${String(new Date().getTime()).slice(-6)}`
             let user = await db.from('users').insert({ name: name, is_guest: true }).select()
 
-            const token = signJWT(user?.data)
+            if (user.error) {
+                throw new Error()
+            } else {
+                user = user.data[0]
+            }
 
-            return res.status(201).send({ user: user?.data, token })
+            const token = signJWT(user)
+            return res.status(201).send({ user, token })
+        } catch (err) {
+            console.error(err)
+            return res.status(400).send()
+        }
+    },
+
+    async getReservations(req, res) {
+        try {
+            let reservations = await db.from('reservations')
+                .select('*, restaurant (id, name, cuisine, image, rating)')
+                .eq('user', req.user.id)
+
+            if (reservations.error) throw new Error(reservations.error)
+
+            return res.status(200).send(reservations.data)
         } catch (err) {
             console.error(err)
             return res.status(400).send()

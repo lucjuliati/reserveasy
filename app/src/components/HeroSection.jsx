@@ -1,42 +1,36 @@
 import React from 'react'
 import {
   CTAButton, Grid, GridItem, HeroContainer, HeroOverlay, ItemContent,
-  ItemDescription, ItemImage, ItemTitle, LongItem, MainTitle, ShortItem, Subtitle
+  ItemDescription, ItemImage, ItemTitle, LongItem, MainTitle, ShortItem
 } from './styles'
 
 const HeroSection = () => {
-  const gridItems = [
-    {
-      title: "No More 'Table for None'",
-      description: `Say goodbye to awkward waits and hello to guaranteed seats. We're basically your restaurant fairy godmother, minus the pumpkin carriage.`,
-      image: "assets/hero-image7.jpg",
-      type: "long",
-    },
-    {
-      title: "Foodie Time Machine",
-      description: `Book your table faster than you can say "I'm hangry!" Time travel not included, but we're working on it.`,
-      image: "assets/hero-image2.png",
-      type: "short",
-    },
-    {
-      title: "Date Night Hero",
-      description: `Impress your date with a perfectly timed reservation. We won't tell them it was us, promise!`,
-      image: "assets/hero-image4.jpg",
-      type: "normal",
-    },
-    {
-      title: "Group Dining, No Crying",
-      description: `Organizing a group dinner? We'll handle the logistics, you handle the gossip.`,
-      image: "assets/hero-image1.png",
-      type: "normal",
-    },
-    {
-      title: "Foodie Adventures",
-      description: `Discover new cuisines nearby. It's like Tinder, but for restaurants, and with a much higher success rate!`,
-      image: "assets/hero-image0.jpg",
-      type: "normal",
-    },
-  ]
+  const gridItems = [{
+    title: "No More 'Table for None'",
+    description: `Say goodbye to awkward waits and hello to guaranteed seats.`,
+    image: "assets/hero-image7.jpg",
+    type: "long",
+  }, {
+    title: "Foodie Time Machine",
+    description: `Book your table faster than you can say "I'm hangry!"`,
+    image: "assets/hero-image2.png",
+    type: "short",
+  }, {
+    title: "Date Night Hero",
+    description: `Impress your date with a perfectly timed reservation. We won't tell them it was us, promise!`,
+    image: "assets/hero-image4.jpg",
+    type: "normal",
+  }, {
+    title: "Group Dining",
+    description: `Organizing a group dinner? We'll handle the logistics, you handle the gossip.`,
+    image: "assets/hero-image1.png",
+    type: "normal",
+  }, {
+    title: "Food Adventures",
+    description: `Discover new cuisines nearby. It's like Tinder, but for restaurants, and with a much higher success rate!`,
+    image: "assets/hero-image0.jpg",
+    type: "normal",
+  }]
 
   return (
     <HeroContainer>
@@ -46,12 +40,6 @@ const HeroSection = () => {
         transition={{ duration: 0.8 }}>
         <b>Reserveasy</b>
       </MainTitle>
-      <Subtitle
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}>
-        Where 'Table for Two' is always on the menu, and 'Sorry, we're full' is off it!
-      </Subtitle>
       <Grid
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}

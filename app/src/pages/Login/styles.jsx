@@ -11,7 +11,7 @@ export const LoginContainer = styled.div`
   background-color: ${theme.colors.background};
 `
 
-export const LoginForm = styled(motion.form)`
+export const LoginForm = styled(motion.div)`
   background-color: ${theme.colors.white};
   padding: 2rem;
   border-radius: 10px;

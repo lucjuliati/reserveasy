@@ -62,7 +62,8 @@ export const SearchInput = styled.input`
   flex-grow: 1;
   border: none;
   font-size: 1.1rem;
-  padding: 0.5rem;
+  padding: 12px 0;
+  margin: 0;
   &:focus {
     outline: none;
   }

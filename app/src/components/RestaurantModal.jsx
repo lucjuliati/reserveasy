@@ -1,81 +1,87 @@
-import React from 'react'
-import styled from 'styled-components'
-import { motion } from 'framer-motion'
-
-const ModalOverlay = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`
-
-const ModalContent = styled(motion.div)`
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 90%;
-`
-
-const CloseButton = styled.button`
-  background-color: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  float: right;
-`
-
-const Image = styled.img`
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-`
-
-const Name = styled.h2`
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-`
-
-const Cuisine = styled.p`
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 0.5rem;
-`
-
-const Rating = styled.span`
-  color: #ff6b6b;
-  font-weight: bold;
-  font-size: 1.2rem;
-`
+import React, { useState } from 'react'
+import {
+  CloseButton, ModalOverlay, RestaurantCuisine,
+  RestaurantImage, RestaurantName, RestaurantRating
+} from './styles'
+import api from '../utils/api'
+import session from '../utils/session'
+import { useNavigate } from 'react-router-dom'
 
 function RestaurantModal({ restaurant, onClose }) {
+  const navigate = useNavigate()
+  const [form, setForm] = useState({ open: false, date: '', time: '' })
+
+  const handleChange = (key, value) => setForm({ ...form, [key]: value })
+
+  const handleReserve = () => {
+    if (session.isAuth()) {
+      handleChange('open', true)
+    } else {
+      navigate('/login')
+    }
+  }
+
+  const addReservation = () => {
+    console.log(form)
+    if (!form.time || !form.date) return
+
+    let data = {
+      date: `${form.date} ${form.time}`
+    }
+
+    console.log(data)
+
+    api.post(`/restaurants/${restaurant.id}/reservations`, data).then(res => {
+      console.log(res)
+    }).catch(console.error)
+  }
+
+  const minDate = () => {
+    let currentDate = new Date()
+    currentDate.setDate(currentDate.getDate() - 1)
+    return currentDate.toLocaleDateString("pt-BR").split("/").reverse().join("-")
+  }
+
   return (
-    <ModalOverlay
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}>
-      <ModalContent
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 50, opacity: 0 }}
-        onClick={(e) => e.stopPropagation()}>
+    <ModalOverlay onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
-        <Image src={restaurant.image} alt={restaurant.name} />
-        <Name>{restaurant.name}</Name>
-        <Cuisine>{restaurant.cuisine} Cuisine</Cuisine>
-        <Rating>★ {restaurant.rating.toFixed(1)}</Rating>
-        <p>Additional restaurant details can be added here...</p>
-        <button>Reserve</button>
-      </ModalContent>
+        <RestaurantImage src={restaurant.image} alt={restaurant.name} />
+        <RestaurantName>{restaurant.name}</RestaurantName>
+        <RestaurantCuisine>{restaurant.cuisine} Cuisine</RestaurantCuisine>
+        <RestaurantRating>★ {restaurant.rating.toFixed(1)}</RestaurantRating>
+        <div className="align">
+          {form.open ?
+            <div>
+              <label>
+                Date
+                <input
+                  type="date"
+                  min={minDate()}
+                  value={form.date}
+                  onChange={(e) => handleChange('date', e.target.value)}
+                />
+              </label>
+              <label>
+                Time
+                <input
+                  type="time"
+                  min="08:00"
+                  max="23:00"
+                  value={form.time}
+                  onChange={(e) => handleChange('time', e.target.value)}
+                />
+              </label>
+              <div className="align" style={{ marginTop: '0px' }}>
+                <button id="cancel-reserve" onClick={() => handleChange('open', false)}>Cancel</button>
+                <button id="add-reserve" onClick={addReservation}>Save</button>
+              </div>
+            </div>
+            :
+            <button id="reserve" onClick={handleReserve}>Reserve</button>
+          }
+        </div>
+      </div>
     </ModalOverlay>
   )
 }

@@ -58,7 +58,7 @@ const restaurantController = {
                 date: data.date
             }).select()
 
-            if (reservation.status != 201) throw new Error(reservation.error)
+            if (reservation.error) throw new Error(reservation.error)
 
             return res.status(201).send(reservation.data)
         } catch (err) {

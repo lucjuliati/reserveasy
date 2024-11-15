@@ -24,6 +24,31 @@ export const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  #log-out {
+    font-family: ${theme.fonts.body};
+    font-size: 0.95rem;
+    color: ${theme.colors.white};
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: ${theme.colors.secondary};
+      transform: translateY(-2px);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
 `
 
 export const Logo = styled(Link)`
@@ -95,6 +120,10 @@ export const AuthLinks = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  & * {
+    display: ${props => props.display} !important;
+  }
 `
 
 export const AuthLink = styled(Link)`
@@ -153,6 +182,7 @@ export const MobileNavLinks = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  }
 `
 
 export const MobileAuthLinks = styled.div`
@@ -348,6 +378,7 @@ export const ItemImage = styled.img`
   left: 0;
   width: 100%;
   height: 100%;
+  user-select: none;
   object-fit: cover;
   transition: transform 0.3s ease;
 
@@ -395,21 +426,12 @@ export const HeroOverlay = styled.div`
 export const MainTitle = styled(motion.h1)`
   font-size: 4rem;
   font-weight: bold;
-  margin-top: 50px;
-  margin-bottom: 1rem;
+  margin-top: 70px;
+  margin-bottom: 2rem;
   text-align: center;
   font-family: ${theme.fonts.heading};
   color: ${theme.colors.primary};
   letter-spacing: -1px;
-`
-
-export const Subtitle = styled(motion.p)`
-  font-size: 1.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-family: ${theme.fonts.main};
-  color: ${theme.colors.secondary};
-  max-width: 800px;
 `
 
 export const CTAButton = styled(motion.button)`
@@ -494,4 +516,168 @@ export const Stars = styled.span`
 export const RatingValue = styled.span`
   font-weight: bold;
   color: ${theme.colors.text};
+`
+
+export const ModalOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+
+  .modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    min-height: 250px;
+    max-width: 500px;
+    max-height: 600px;
+    margin-bottom: 200px;
+    width: 90%;
+
+    img {
+      user-select: none;
+    }
+
+    .align {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    #reserve, #cancel-reserve, #add-reserve {
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      background-color: ${theme.colors.primary};
+      color: ${theme.colors.white};
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #cancel-reserve {
+      background-color: #cacaca;
+      color: #333;
+    }
+
+    #add-reserve {
+      margin-left: 8px
+    }
+  }
+`
+
+export const CloseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  float: right;
+`
+
+export const RestaurantImage = styled.img`
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+`
+
+export const RestaurantName = styled.h2`
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+`
+
+export const RestaurantCuisine = styled.p`
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+`
+
+export const RestaurantRating = styled.span`
+  color: #ff6b6b;
+  font-weight: bold;
+  font-size: 1.2rem;
+`
+
+
+export const FooterContainer = styled.footer`
+  background-color: #1A1A1A;
+  color: ${theme.colors.white};
+  padding: 4rem 0 2rem;
+`
+
+export const FooterContent = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+`
+
+export const FooterSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  #footer-title {
+    font-family: ${theme.fonts.heading};
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: ${theme.colors.primary};
+  }
+  a#footer-link {
+    color: #B0B0B0; // Light gray for better readability
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: ${theme.colors.primary};
+    }
+  }
+`
+
+export const SocialIcons = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .social-icon {
+    color: #B0B0B0;
+    font-size: 1.5rem;
+
+    &:hover {
+      color: ${theme.colors.primary};
+      transform: scale(1.1);
+    }
+  }
+`
+
+export const Copyright = styled.p`
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #808080;
+`
+
+export const ReservationItem = styled.div`
+  display: flex;
+  margin-top: 8px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 8px 10px;
+
+  img {
+    object-fit: cover;
+    border-radius: 12px;
+    margin-right: 12px;
+  }
 `

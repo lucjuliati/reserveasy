@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { theme } from '../styles/theme'
-import { FaBars, FaTimes, FaUser, FaSignInAlt } from 'react-icons/fa'
-import { AuthLink, AuthLinks, HeaderContainer, HeaderContent, Nav, NavLinks, NavLink, Logo, MobileMenuIcon } from './styles'
+import { FaBars, FaTimes, FaUser, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
+import { AuthLink, AuthLinks, HeaderContainer, HeaderContent, Nav, NavLinks, NavLink, Logo, MobileMenuIcon, ModalOverlay } from './styles'
+import api from '../utils/api'
+import session from '../utils/session'
+import { ReservationsModal } from './ReservationsModal'
 
 const headerVariants = {
   hidden: { y: -80 },
@@ -12,6 +14,8 @@ const headerVariants = {
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [reservationModal, setReservationModal] = useState(false)
+  const [reservations, setReservations] = useState([])
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -23,50 +27,72 @@ function Header() {
     }
   }
 
+  const logout = () => {
+    localStorage.clear()
+    setTimeout(() => window.location.reload(), 100)
+  }
+
+  const toggleModal = () => setReservationModal(!reservationModal)
+
+  const getReservations = () => {
+    api.get('/users/reservations').then(res => {
+      let reservations_ = []
+      res.data?.forEach((r) => {
+        reservations_.push({ ...r.restaurant, date: r.date })
+      })
+
+      setReservations(reservations_)
+    }).catch(console.error)
+  }
+
   return (
     <>
+      {reservationModal
+        ?
+        <ReservationsModal reservations={reservations} toggle={toggleModal} />
+        :
+        null
+      }
+
       <HeaderContainer
         variants={headerVariants}
         initial="visible"
         animate="visible">
         <HeaderContent>
           <Logo to="/">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" stroke={theme.colors.white} strokeWidth="5" fill="none" />
-              <text
-                x="50%"
-                y="55%"
-                textAnchor="middle"
-                fill={theme.colors.white}
-                fontSize="24px"
-                fontFamily={theme.fonts.heading}>
-                Reserveasy
-              </text>
-            </svg>
-            Reserveasy
+            <img src="assets/logo.png" width={64} />
           </Logo>
-          <Nav>
-            <NavLinks>
-              <li>
-                <NavLink to={`/`} onClick={handleNavClick}>
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to={`/restaurants`} onClick={handleNavClick}>
-                  Restaurants
-                </NavLink>
-              </li>
-            </NavLinks>
-          </Nav>
-          <AuthLinks>
-            <AuthLink to="/login">
-              <FaSignInAlt /> Log In
-            </AuthLink>
-            <AuthLink to="/signup">
-              <FaUser /> Sign Up
-            </AuthLink>
-          </AuthLinks>
+          {session.isAuth()
+            ?
+            <>
+              <Nav>
+                <NavLinks>
+                  <li>
+                    <NavLink to={`/`} onClick={handleNavClick}>
+                      Home
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink onClick={() => { toggleModal(); getReservations() }}>
+                      My Reservations
+                    </NavLink>
+                  </li>
+                </NavLinks>
+              </Nav>
+              <button id="log-out" onClick={logout}>
+                <FaSignOutAlt /> Log Out
+              </button>
+            </>
+            :
+            <AuthLinks>
+              <AuthLink to="/login">
+                <FaSignInAlt /> Log In
+              </AuthLink>
+              <AuthLink to="/signup">
+                <FaUser /> Sign Up
+              </AuthLink>
+            </AuthLinks>
+          }
           <MobileMenuIcon
             onClick={toggleMobileMenu}
             aria-label="Toggle menu"

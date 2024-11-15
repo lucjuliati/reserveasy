@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
-import { restaurantApi, reservationApi } from '../../utils/api'
 import { DetailContainer, ImageGallery, ReservationSection } from './styles'
 
 const RestaurantDetails = () => {
@@ -15,14 +14,14 @@ const RestaurantDetails = () => {
 
   useEffect(() => {
     const fetchRestaurant = async () => {
-      try {
-        const { data } = await restaurantApi.getById(id)
-        setRestaurant(data)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching restaurant:', error)
-        setLoading(false)
-      }
+      // try {
+      //   const { data } = await restaurantApi.getById(id)
+      //   setRestaurant(data)
+      //   setLoading(false)
+      // } catch (error) {
+      //   console.error('Error fetching restaurant:', error)
+      //   setLoading(false)
+      // }
     }
 
     fetchRestaurant()
@@ -30,12 +29,12 @@ const RestaurantDetails = () => {
 
   const handleReservation = async () => {
     try {
-      const { data } = await reservationApi.create({
-        restaurantId: id,
-        date: selectedDate,
-        time: selectedTime,
-        partySize,
-      })
+      // const { data } = await reservationApi.create({
+      //   restaurantId: id,
+      //   date: selectedDate,
+      //   time: selectedTime,
+      //   partySize,
+      // })
 
     } catch (error) {
 

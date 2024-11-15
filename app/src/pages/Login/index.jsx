@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { theme } from '../../styles/theme'
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
-import api, { ADDRESS } from '../../utils/api'
 import { LoginForm, LoginContainer, Title, SignUpLink } from './styles'
-import axios from 'axios'
+import session from '../../utils/session'
+import api from '../../utils/api'
 
 function Login() {
   const navigate = useNavigate()
@@ -14,24 +14,18 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Login with:', email, password)
-
     let data = { email, password }
-    
+
     api.post('/users/login', data).then(res => {
-      console.log(res.data)
+      session.setData(res.data)
+      navigate('/')
     }).catch(console.error)
   }
 
-  useEffect(() => {
-    axios.get(ADDRESS + '/users/tests').then(res => {
-      console.log(res)
-    })
-  }, [])
-
   const guestSubmit = () => {
-    axios.post(ADDRESS + '/users/guests').then(res => {
-      console.log(res.data)
+    api.post('/users/guests').then(res => {
+      session.setData(res.data)
+      navigate('/')
     }).catch(console.error)
   }
 
@@ -66,7 +60,6 @@ function Login() {
             Log In
           </button>
           <motion.button
-            type="submit"
             onClick={guestSubmit}
             className="loginFormBtn"
             style={{ background: 'royalblue' }}>

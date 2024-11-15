@@ -10,7 +10,7 @@ function execute(action, delay) {
             console.error(err)
             reject(err)
         }
-    }, delay))
+    }, delay * 1000))
 }
 
 changeDir.on('close', async (code) => {
@@ -23,8 +23,8 @@ changeDir.on('close', async (code) => {
 
                 console.info('public/ deleted')
             })
-        }, 1_500)
-        
+        }, 1.5)
+
         spawn('yarn', ['build'], { cwd: '../app', shell: true }).on('close', async (code) => {
             console.info('\x1b[32m%s\x1b[0m', 'Vite build finished')
 
@@ -34,7 +34,7 @@ changeDir.on('close', async (code) => {
 
                     console.info('app/dist/ moved to backend/public/')
                 })
-            }, 1_000)
+            }, 1)
 
             await execute(() => {
                 exec('cp ../app/assets/* ../backend/public/assets/', (error, stdout, stderr) => {
@@ -42,7 +42,7 @@ changeDir.on('close', async (code) => {
 
                     console.info('app/assets/ moved to backend/public/')
                 })
-            }, 1_000)
+            }, 1)
         })
     } catch (err) {
         console.error(err)
