@@ -11,7 +11,7 @@ export const SignUpContainer = styled.div`
   background-color: ${theme.colors.background};
 `
 
-export const SignUpForm = styled(motion.form)`
+export const SignUpForm = styled(motion.div)`
   background-color: ${theme.colors.white};
   padding: 2rem;
   border-radius: 10px;

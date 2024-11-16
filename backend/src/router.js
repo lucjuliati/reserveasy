@@ -12,6 +12,6 @@ router.get('/users/reservations', auth, users.getReservations)
 router.get('/restaurants', optionalAuth, restaurants.list)
 router.get('/restaurants/:id', optionalAuth, restaurants.get)
 router.post('/restaurants/:id/reservations', auth, restaurants.addReservation)
-router.delete('/restaurants/reservations/:id', auth, restaurants.removeReservation)
+router.delete('/restaurants/:rId/reservations/:id', auth, restaurants.removeReservation)
 
 export default router

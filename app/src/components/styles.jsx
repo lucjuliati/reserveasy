@@ -537,6 +537,8 @@ export const ModalOverlay = styled(motion.div)`
     min-height: 250px;
     max-width: 500px;
     max-height: 600px;
+    overflow-y: auto;
+    padding: bottom: 80px;
     margin-bottom: 200px;
     width: 90%;
 
@@ -674,10 +676,27 @@ export const ReservationItem = styled.div`
   background-color: #f2f2f2;
   border-radius: 10px;
   padding: 8px 10px;
+  position: relative;
 
   img {
     object-fit: cover;
     border-radius: 12px;
     margin-right: 12px;
+  }
+
+  #close {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    border-radius: 50%;
+    padding: 4px 5px 2px 5px;
+    color: #454545;
+    cursor: pointer;
+    transform: scale(1.2);
+
+    &:hover {
+      background-color: #dadada;
+      color: #111;
+    }
   }
 `

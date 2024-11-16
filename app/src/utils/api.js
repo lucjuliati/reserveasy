@@ -1,5 +1,6 @@
 import axios from 'axios'
 import session from './session'
+import { useNavigate } from 'react-router-dom'
 
 const devAddress = 'http://localhost:8888/.netlify/functions/api'
 const prodAddress = '.netlify/functions/api/'
@@ -23,6 +24,21 @@ api.interceptors.request.use((config) => {
   }
 
   return config
+})
+
+api.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+
+  if (error.response.status) {
+    localStorage.clear()
+
+    setTimeout(() => {
+      window.location.reload()
+    }, 100)
+  }
+
+  return Promise.reject(error)
 })
 
 export default api 

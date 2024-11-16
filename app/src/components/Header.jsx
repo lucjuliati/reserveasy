@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { FaBars, FaTimes, FaUser, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
-import { AuthLink, AuthLinks, HeaderContainer, HeaderContent, Nav, NavLinks, NavLink, Logo, MobileMenuIcon, ModalOverlay } from './styles'
+import { AuthLink, AuthLinks, HeaderContainer, HeaderContent, Nav, NavLinks, NavLink, Logo, MobileMenuIcon } from './styles'
 import api from '../utils/api'
 import session from '../utils/session'
 import { ReservationsModal } from './ReservationsModal'
@@ -38,10 +38,24 @@ function Header() {
     api.get('/users/reservations').then(res => {
       let reservations_ = []
       res.data?.forEach((r) => {
-        reservations_.push({ ...r.restaurant, date: r.date })
+        reservations_.push({
+          ...r.restaurant,
+          restaurantId: r.restaurant.id,
+          id: r.id,
+          date: r.date
+        })
       })
 
       setReservations(reservations_)
+    }).catch(console.error)
+  }
+
+  const removeReservation = (res) => {
+    const url = `/restaurants/${res?.restaurantId}/reservations/${res.id}`
+
+    api.delete(url).then((res) => {
+      setReservations([])
+      setTimeout(() => getReservations(), 100)
     }).catch(console.error)
   }
 
@@ -49,7 +63,10 @@ function Header() {
     <>
       {reservationModal
         ?
-        <ReservationsModal reservations={reservations} toggle={toggleModal} />
+        <ReservationsModal
+          reservations={reservations}
+          remove={(res) => removeReservation(res)}
+          toggle={toggleModal} />
         :
         null
       }

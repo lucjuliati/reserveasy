@@ -28,35 +28,13 @@ const CursorCanvas = styled.canvas`
   height: 100%;
 `
 
-const CursorDot = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  background-color: yellow;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  transition: transform 0.05s ease, box-shadow 0.2s ease;
-
-  box-shadow: 0 0 10px rgba(255, 255, 0, 0.5), 0 0 20px rgba(255, 255, 0, 0.3);
-
-  &.glow {
-    animation: ${neonGlow} 1s infinite ease-in-out;
-  }
-`
-
 function CustomCursor() {
   const canvasRef = useRef(null)
-  const dotRef = useRef(null)
   let idleTimeout = null
 
   useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
-    const dot = dotRef.current
 
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
@@ -99,13 +77,7 @@ function CustomCursor() {
       mouseX = clientX
       mouseY = clientY
 
-      dot.style.transform = `translate(${clientX}px, ${clientY}px)`
-      dot.classList.add('glow')
-
       clearTimeout(idleTimeout)
-      idleTimeout = setTimeout(() => {
-        dot.classList.remove('glow')
-      }, 500)
     }
 
     function handleResize() {
@@ -127,7 +99,6 @@ function CustomCursor() {
   return (
     <CursorContainer>
       <CursorCanvas ref={canvasRef} />
-      <CursorDot ref={dotRef} />
     </CursorContainer>
   )
 }

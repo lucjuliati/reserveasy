@@ -37,16 +37,24 @@ const userController = {
         try {
             let data = req.body
 
-            const user = await db.from('users').insert({
+            let userData = {
                 name: data.name,
                 email: data.email,
                 password: btoa(data.password),
                 is_guest: false,
-            }).select()
+            }
 
-            const token = signJWT(user.data)
+            let user = await db.from('users').insert(userData).select()
 
-            return res.status(201).send({ user: user.data, token: token })
+            if (user.error) {
+                throw new Error(user.error)
+            } else {
+                user = user.data[0]
+            }
+
+            const token = signJWT(user)
+
+            return res.status(201).send({ user: user, token: token })
         } catch (err) {
             console.error(err)
             return res.status(400).send(err?.message)
@@ -56,7 +64,7 @@ const userController = {
     async createGuest(req, res) {
         try {
             let date = new Date()
-            date.setDate(date.getDate() - 1)
+            date.setDate(date.getDate() - 2)
             date = date.toLocaleDateString("pt-BR").split("/").reverse().join("-")
 
             await db.from('users').delete()
@@ -85,6 +93,7 @@ const userController = {
             let reservations = await db.from('reservations')
                 .select('*, restaurant (id, name, cuisine, image, rating)')
                 .eq('user', req.user.id)
+                .order('date', { ascending: true })
 
             if (reservations.error) throw new Error(reservations.error)
 

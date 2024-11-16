@@ -70,7 +70,13 @@ const restaurantController = {
     async removeReservation(req, res) {
         try {
             let params = req.params
-            await db.from('reservations').delete().eq('id', params.id).eq('user', req.user.id)
+            
+            let result = await db.from('reservations').delete()
+                .eq('id', parseInt(params.id))
+                .eq('restaurant', parseInt(params.rId))
+                .eq('user', req.user.id)
+
+            if (result.error) throw new Error()
 
             return res.status(200).send()
         } catch (err) {

@@ -26,7 +26,6 @@ function Home() {
   const fetchRestaurants = async () => {
 
     api.get('/restaurants').then(res => {
-      console.log(res)
       setRestaurants(prev => [...prev, ...res.data])
       setHasMore(res.data.length === 10)
     }).catch(console.error)
