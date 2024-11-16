@@ -3,13 +3,19 @@ import { FaTimes } from "react-icons/fa"
 
 export function ReservationsModal({ reservations, toggle, remove }) {
   const formatDate = (date) => {
-    return new Date(date).toLocaleString("en-US", {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric'
-    })
+    try {
+      let dateParams = date.toLocaleString().replace("T", "-").replace(/:/g, "-").split("-").slice(0, 5)
+
+      return new Date(...dateParams).toLocaleString("en-US", {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+      })
+    } catch (err) {
+      return "---"
+    }
   }
 
   const isPast = (date) => {
