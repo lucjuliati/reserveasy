@@ -13,7 +13,7 @@ function SignUp() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
-  const [toast, setToast] = useState({ active: false, message: "" })
+  const [toast, setToast] = useState({ active: false, title: "", message: "" })
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -29,9 +29,9 @@ function SignUp() {
       setTimeout(() => navigate('/'), 100)
     }).catch((err) => {
       console.error(err)
-      setToast({ active: false, message: "An error occurred" })
+      setToast({ active: false, title: "Error", message: "An error occurred" })
       setTimeout(() => {
-        setToast({ active: false, message: null })
+        setToast({ active: false, title: "", message: "" })
       }, 4500)
     })
   }
@@ -42,9 +42,9 @@ function SignUp() {
       setTimeout(() => navigate('/'), 100)
     }).catch((err) => {
       console.error(err)
-      setToast({ active: false, message: "An error occurred" })
+      setToast({ active: false, title: "Error", message: "An error occurred" })
       setTimeout(() => {
-        setToast({ active: false, message: null })
+        setToast({ active: false, title: "", message: ""})
       }, 4500)
     })
   }

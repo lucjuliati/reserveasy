@@ -5,7 +5,8 @@ const devAddress = 'http://localhost:8888/.netlify/functions/api'
 const prodAddress = '.netlify/functions/api/'
 
 const api = axios.create({
-  baseURL: import.meta.env.DEV ? devAddress : prodAddress,
+  // baseURL: import.meta.env.DEV ? devAddress : prodAddress,
+  baseURL: 'https://reserveasy.netlify.app/.netlify/functions/api/',
   headers: {
     'Content-Type': 'application/json',
   },

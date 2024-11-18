@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { FaBars, FaTimes, FaUser, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
 import { AuthLink, AuthLinks, HeaderContainer, HeaderContent, Nav, NavLinks, NavLink, Logo, MobileMenuIcon } from './styles'
+import { ReservationsModal } from './ReservationsModal'
+import MobileMenu from './MobileMenu'
 import api from '../utils/api'
 import session from '../utils/session'
-import { ReservationsModal } from './ReservationsModal'
 
 const headerVariants = {
   hidden: { y: -80 },
@@ -50,13 +51,10 @@ function Header() {
     }).catch(console.error)
   }
 
-  const removeReservation = (res) => {
-    const url = `/restaurants/${res?.restaurantId}/reservations/${res.id}`
+  const removeReservation = (reservation) => {
+    const url = `/restaurants/${reservation?.restaurantId}/reservations/${reservation.id}`
 
-    api.delete(url).then((res) => {
-      setReservations([])
-      setTimeout(() => getReservations(), 100)
-    }).catch(console.error)
+    api.delete(url).then((res) => getReservations()).catch(console.error)
   }
 
   return (
@@ -65,7 +63,7 @@ function Header() {
         ?
         <ReservationsModal
           reservations={reservations}
-          remove={(res) => removeReservation(res)}
+          remove={(reservation) => removeReservation(reservation)}
           toggle={toggleModal} />
         :
         null
@@ -119,31 +117,7 @@ function Header() {
         </HeaderContent>
       </HeaderContainer>
       <AnimatePresence>
-        {isMobileMenuOpen && (
-          <MobileMenu
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}>
-            <MobileNavLinks>
-              {['Home', 'Restaurants', 'About', 'Contact'].map((item) => (
-                <li key={item}>
-                  <NavLink to={`/${item.toLowerCase()}`} onClick={handleNavClick}>
-                    {item}
-                  </NavLink>
-                </li>
-              ))}
-            </MobileNavLinks>
-            <MobileAuthLinks>
-              <AuthLink to="/login" onClick={handleNavClick}>
-                <FaSignInAlt /> Log In
-              </AuthLink>
-              <AuthLink to="/signup" onClick={handleNavClick}>
-                <FaUser /> Sign Up
-              </AuthLink>
-            </MobileAuthLinks>
-          </MobileMenu>
-        )}
+        {isMobileMenuOpen ? <MobileMenu /> : null}
       </AnimatePresence>
     </>
   )

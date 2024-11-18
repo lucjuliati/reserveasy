@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  CTAButton, Grid, GridItem, HeroContainer, HeroOverlay, ItemContent,
+  Grid, GridItem, HeroContainer, HeroOverlay, ItemContent,
   ItemDescription, ItemImage, ItemTitle, LongItem, MainTitle, ShortItem
 } from './styles'
 
@@ -11,12 +11,12 @@ const HeroSection = () => {
     image: "assets/hero-image7.jpg",
     type: "long",
   }, {
-    title: "Foodie Time Machine",
-    description: `Book your table faster than you can say "I'm hangry!"`,
+    title: "Food Time Machine",
+    description: `Book your table faster than you can say "I'm hungry!"`,
     image: "assets/hero-image2.png",
     type: "short",
   }, {
-    title: "Date Night Hero",
+    title: "Date/Night Hero",
     description: `Impress your date with a perfectly timed reservation. We won't tell them it was us, promise!`,
     image: "assets/hero-image4.jpg",
     type: "normal",
@@ -71,14 +71,6 @@ const HeroSection = () => {
           )
         })}
       </Grid>
-      <CTAButton
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.8 }}>
-        Book Now
-      </CTAButton>
     </HeroContainer>
   )
 }

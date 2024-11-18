@@ -7,7 +7,7 @@ import session from '../utils/session'
 
 function RestaurantModal({ restaurant, onClose }) {
   const navigate = useNavigate()
-  const [toast, setToast] = useState({ active: false, message: "" })
+  const [toast, setToast] = useState({ active: false, title: "", message: "" })
   const [cooldown, setCooldown] = useState(false)
   const [form, setForm] = useState({
     open: false,
@@ -33,18 +33,18 @@ function RestaurantModal({ restaurant, onClose }) {
     }
 
     if (isPast(data.date)) {
-      setToast({ active: true, message: "You can't reserve a past date!" })
+      setToast({ active: true, title: "Error", message: "You can't reserve a past date!" })
       setTimeout(() => {
-        setToast({ active: false, message: null })
+        setToast({ active: false, title: "", message: "" })
       }, 4500)
       return
     }
 
     api.post(`/restaurants/${restaurant.id}/reservations`, data).then(res => {
       setCooldown(true)
-      setToast({ active: true, message: "Reservation successfully saved!" })
+      setToast({ active: true, title: "Success", message: "Reservation successfully made!" })
       setTimeout(() => {
-        setToast({ active: false, message: null })
+        setToast({ active: false, title: "", message: "" })
         onClose()
       }, 4500)
     }).catch(console.error)
@@ -66,7 +66,7 @@ function RestaurantModal({ restaurant, onClose }) {
     <>
       {toast.active
         ?
-        <Toast title="Error" message={toast.message} />
+        <Toast title={toast.title} message={toast.message} />
         :
         null
       }

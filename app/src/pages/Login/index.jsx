@@ -12,7 +12,7 @@ function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [toast, setToast] = useState({ active: false, message: "" })
+  const [toast, setToast] = useState({ active: false, title: "", message: "" })
 
   const handleSubmit = () => {
     let data = { email, password }
@@ -22,9 +22,9 @@ function Login() {
       setTimeout(() => navigate('/'), 100)
     }).catch((err) => {
       console.error(err)
-      setToast({ active: true, message: "Incorrect e-mail or password!" })
+      setToast({ active: true, title: "Error", message: "Incorrect e-mail or password!" })
       setTimeout(() => {
-        setToast({ active: false, message: null })
+        setToast({ active: false, title: "", message: "" })
       }, 4500)
     })
   }
@@ -44,7 +44,7 @@ function Login() {
 
       {toast.active
         ?
-        <Toast title="Error" message={toast.message} />
+        <Toast title={toast.title} message={toast.message} />
         :
         null
       }

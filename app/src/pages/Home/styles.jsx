@@ -54,18 +54,30 @@ export const SearchContainer = styled.div`
 
   &:focus-within {
     transform: translateY(-2px);
-    box-shadow: 
-      0 6px 12
+    box-shadow: 0 6px 12;
+  }
+
+  & {
+    @media (max-width: 800px)
+    {  margin: 0 15px; }
+  }
 `
 
 export const SearchInput = styled.input`
   flex-grow: 1;
   border: none;
   font-size: 1.1rem;
-  padding: 12px 0;
+  padding: 10px 4px;
   margin: 0;
+
   &:focus {
     outline: none;
+  }
+
+  & {
+    @media (max-width: 800px) {
+      padding: 0 16px !important;
+    }
   }
 `
 
@@ -91,6 +103,15 @@ export const FilterContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
+  width: 100%;
+  overflow-x: scroll;
+
+  & {
+    @media (max-width: 800px) {
+      padding: 5px 20px;
+      width: calc(100% - 20px)
+    }
+  }
 `
 
 export const FilterButton = styled.button`

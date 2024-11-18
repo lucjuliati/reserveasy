@@ -347,6 +347,13 @@ export const Grid = styled(motion.div)`
   max-width: 1350px;
   width: 100%;
   height: 80vh;
+
+  & {
+    @media (max-width: 800px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }   
 `
 
 export const GridItem = styled(motion.div)`
@@ -432,25 +439,6 @@ export const MainTitle = styled(motion.h1)`
   font-family: ${theme.fonts.heading};
   color: ${theme.colors.primary};
   letter-spacing: -1px;
-`
-
-export const CTAButton = styled(motion.button)`
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.white};
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 2rem;
-
-  &:hover {
-    background-color: ${theme.colors.secondary};
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
 `
 
 export const Card = styled(motion.div)`

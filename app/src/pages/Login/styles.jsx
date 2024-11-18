@@ -33,6 +33,7 @@ export const SignUpLink = styled(Link)`
   text-align: center;
   margin-top: 1rem;
   color: ${theme.colors.primary};
+  filter: brightness(0.9);
   text-decoration: none;
   &:hover {
     text-decoration: underline;
