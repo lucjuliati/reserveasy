@@ -5,6 +5,7 @@ export function ReservationsModal({ reservations, toggle, remove }) {
   const formatDate = (date) => {
     try {
       let dateParams = date.toLocaleString().replace("T", "-").replace(/:/g, "-").split("-").slice(0, 5)
+      dateParams[1] = dateParams[1] - 1
 
       return new Date(...dateParams).toLocaleString("en-US", {
         month: 'long',
@@ -21,6 +22,7 @@ export function ReservationsModal({ reservations, toggle, remove }) {
   const isPast = (date) => {
     const now = new Date().getTime()
     const rDate = new Date(date).getTime()
+    
     return rDate <= now
   }
 
